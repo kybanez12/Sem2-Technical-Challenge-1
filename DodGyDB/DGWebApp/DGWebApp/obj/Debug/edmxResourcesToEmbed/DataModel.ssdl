@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Assigned">
+    <Key>
+      <PropertyRef Name="StudentId" />
+      <PropertyRef Name="MACaddress" />
+    </Key>
+    <Property Name="StudentId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MACaddress" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Module">
+    <Key>
+      <PropertyRef Name="MACaddress" />
+    </Key>
+    <Property Name="MACaddress" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentId" />
+    </Key>
+    <Property Name="StudentId" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_MAC">
+    <End Role="Module" Type="Self.Module" Multiplicity="1" />
+    <End Role="Assigned" Type="Self.Assigned" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="MACaddress" />
+      </Principal>
+      <Dependent Role="Assigned">
+        <PropertyRef Name="MACaddress" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_STU">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Assigned" Type="Self.Assigned" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentId" />
+      </Principal>
+      <Dependent Role="Assigned">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Assigned" EntityType="Self.Assigned" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_MAC" Association="Self.FK_MAC">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="Assigned" EntitySet="Assigned" />
+    </AssociationSet>
+    <AssociationSet Name="FK_STU" Association="Self.FK_STU">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Assigned" EntitySet="Assigned" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

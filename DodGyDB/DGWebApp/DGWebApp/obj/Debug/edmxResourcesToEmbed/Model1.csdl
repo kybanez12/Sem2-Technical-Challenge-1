@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DGdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ASSIGNED">
+    <Key>
+      <PropertyRef Name="Student" />
+      <PropertyRef Name="Module" />
+    </Key>
+    <Property Name="Student" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Module" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateIssued" Type="Int32" />
+    <NavigationProperty Name="MODULE1" Relationship="Self.FK_MOD" FromRole="ASSIGNED" ToRole="MODULE" />
+    <NavigationProperty Name="STUDENT1" Relationship="Self.FK_STU" FromRole="ASSIGNED" ToRole="STUDENT" />
+  </EntityType>
+  <EntityType Name="MODULE">
+    <Key>
+      <PropertyRef Name="MAC" />
+    </Key>
+    <Property Name="MAC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ASSIGNEDs" Relationship="Self.FK_MOD" FromRole="MODULE" ToRole="ASSIGNED" />
+  </EntityType>
+  <EntityType Name="STUDENT">
+    <Key>
+      <PropertyRef Name="StudentID" />
+    </Key>
+    <Property Name="StudentID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ASSIGNEDs" Relationship="Self.FK_STU" FromRole="STUDENT" ToRole="ASSIGNED" />
+  </EntityType>
+  <Association Name="FK_MOD">
+    <End Role="MODULE" Type="Self.MODULE" Multiplicity="1" />
+    <End Role="ASSIGNED" Type="Self.ASSIGNED" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MODULE">
+        <PropertyRef Name="MAC" />
+      </Principal>
+      <Dependent Role="ASSIGNED">
+        <PropertyRef Name="Module" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_STU">
+    <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="1" />
+    <End Role="ASSIGNED" Type="Self.ASSIGNED" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="STUDENT">
+        <PropertyRef Name="StudentID" />
+      </Principal>
+      <Dependent Role="ASSIGNED">
+        <PropertyRef Name="Student" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DGdbEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ASSIGNEDs" EntityType="Self.ASSIGNED" />
+    <EntitySet Name="MODULEs" EntityType="Self.MODULE" />
+    <EntitySet Name="STUDENTs" EntityType="Self.STUDENT" />
+    <AssociationSet Name="FK_MOD" Association="Self.FK_MOD">
+      <End Role="MODULE" EntitySet="MODULEs" />
+      <End Role="ASSIGNED" EntitySet="ASSIGNEDs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_STU" Association="Self.FK_STU">
+      <End Role="STUDENT" EntitySet="STUDENTs" />
+      <End Role="ASSIGNED" EntitySet="ASSIGNEDs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DGdbModelStoreContainer" CdmEntityContainer="DGdbEntities1">
+    <EntitySetMapping Name="ASSIGNEDs">
+      <EntityTypeMapping TypeName="DGdbModel.ASSIGNED">
+        <MappingFragment StoreEntitySet="ASSIGNED">
+          <ScalarProperty Name="Student" ColumnName="Student" />
+          <ScalarProperty Name="Module" ColumnName="Module" />
+          <ScalarProperty Name="DateIssued" ColumnName="DateIssued" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MODULEs">
+      <EntityTypeMapping TypeName="DGdbModel.MODULE">
+        <MappingFragment StoreEntitySet="MODULE">
+          <ScalarProperty Name="MAC" ColumnName="MAC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="STUDENTs">
+      <EntityTypeMapping TypeName="DGdbModel.STUDENT">
+        <MappingFragment StoreEntitySet="STUDENT">
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

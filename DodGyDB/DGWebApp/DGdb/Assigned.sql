@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Assigned]
+(
+	[Id] NVARCHAR (128) NOT NULL,
+	[MAC] NVARCHAR (20),
+	CONSTRAINT PK_Ass PRIMARY KEY (Id, MAC)
+)

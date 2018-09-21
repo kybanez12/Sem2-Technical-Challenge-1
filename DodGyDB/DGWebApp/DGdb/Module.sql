@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Module]
+(
+	[MAC] NVARCHAR (20),
+	CONSTRAINT PK_Mod PRIMARY KEY (MAC)
+)

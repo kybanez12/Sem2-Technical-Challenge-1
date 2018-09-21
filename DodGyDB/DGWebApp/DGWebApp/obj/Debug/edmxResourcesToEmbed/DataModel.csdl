@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Module">
+    <Key>
+      <PropertyRef Name="MACaddress" />
+    </Key>
+    <Property Name="MACaddress" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Students" Relationship="Self.Assigned" FromRole="Module" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentId" />
+    </Key>
+    <Property Name="StudentId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Modules" Relationship="Self.Assigned" FromRole="Student" ToRole="Module" />
+  </EntityType>
+  <Association Name="Assigned">
+    <End Role="Module" Type="Self.Module" Multiplicity="*" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="NewEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Modules" EntityType="Self.Module" />
+    <EntitySet Name="Students" EntityType="Self.Student" />
+    <AssociationSet Name="Assigned" Association="Self.Assigned">
+      <End Role="Module" EntitySet="Modules" />
+      <End Role="Student" EntitySet="Students" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
